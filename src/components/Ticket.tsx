@@ -3,7 +3,7 @@ export default function WorkOrder() {
     console.log("submit a ticket");
   }
   const viewTicket=() => {
-    console.log("View existing ticket")
+    console.log("View existing tickets")
   };
 
   return(
