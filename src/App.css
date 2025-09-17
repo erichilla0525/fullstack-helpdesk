@@ -17,26 +17,37 @@
 
 .search-input {
   width: 100%;
-  max-width: 400px;
-  height: 30px;
-  background-color:cornflowerblue;
+  max-width: 500px;
+  height: 45px;
+  background-color: white;
   padding: 5px;
   font-weight: bold;
 }
 
 .ticket-container{
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  margin-top: 250px;
+  align-items: center;
+  margin-top: 120px;
+  margin-left: auto;
+  margin-right: auto;
   gap: 50px;
+  max-width: 500px;
   
 }
 
 .ticket-block,.existing-ticket-block{
   display: flex;
   align-items: center;
-  background-color: whitesmoke;
+  background-color: white;
 }
+
+.ticket-block:hover,
+.existing-ticket-block:hover {
+  background-color: brown;
+}
+
 
 .ticket-title{
   color: black;
