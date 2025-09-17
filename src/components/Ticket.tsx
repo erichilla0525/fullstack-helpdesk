@@ -1,7 +1,11 @@
 export default function WorkOrder() {
   const submitTicket=() => {
     console.log("submit a ticket");
+  }
+  const viewTicket=() => {
+    console.log("View existing ticket")
   };
+
   return(
     <>
       <div className="ticket-container">
@@ -11,9 +15,16 @@ export default function WorkOrder() {
             <h3 className="ticket-title">Submit a work order</h3>
             <p className="ticket-description">Submit a new issue to our department</p>
           </div>
-          
         </button>
-      </div>   
+
+        <button className="existing-ticket-block" onClick={viewTicket}>
+          <span className="ticket-icon">🧾</span>
+          <div className="ticket-content">
+            <h3 className="ticket-title">View existing work order</h3>
+            <p className="ticket-description">View the history work order been submitted</p>
+          </div>
+        </button>
+      </div> 
     </>  
     );
 }

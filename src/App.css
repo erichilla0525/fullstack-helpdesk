@@ -20,16 +20,18 @@
   height: 30px;
   background-color:cornflowerblue;
   padding: 5px;
+  font-weight: bold;
 }
 
 .ticket-container{
   display: flex;
   justify-content: center;
   margin-top: 100px;
-  margin-right: 450px;
+  gap: 50px;
+  
 }
 
-.ticket-block{
+.ticket-block,.existing-ticket-block{
   display: flex;
   align-items: center;
   background-color: whitesmoke;
@@ -46,3 +48,6 @@
 .ticket-icon{
   font-size: 25px;
 }
+
+
+
