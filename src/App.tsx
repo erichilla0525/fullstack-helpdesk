@@ -1,10 +1,12 @@
 import { useState } from "react";
 import "./App.css";
 import Footer from "./components/Footer";
+import FAQ from "./components/Faq";
+
 
 function App() {
-  return (
-   <Footer/>
+  return (<> <FAQ/> <Footer/></>
+
   );
 }
 
