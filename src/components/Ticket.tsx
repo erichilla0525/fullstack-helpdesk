@@ -26,14 +26,14 @@ export default function WorkOrder() {
           </div>
         </button>
 
-        <div>
+        <div className='ticket-list'>
           {ticketData.tickets.map(ticket => (
-            <section key={ticket.id}>
+            <div key={ticket.id}>
               <p>id: {ticket.id}</p>
               <p>content: {ticket.Content}</p>
               <p>priority: {ticket.Priority}</p>
               <p>status: {ticket.Status}</p>
-            </section>
+            </div>
           ))
           }
         </div>
