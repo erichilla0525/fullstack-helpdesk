@@ -1,3 +1,5 @@
+import ticketData from '../data/ticket.json'
+
 export default function WorkOrder() {
   const submitTicket=() => {
     console.log("submit a ticket");
@@ -7,7 +9,6 @@ export default function WorkOrder() {
   };
 
   return(
-    <>
       <div className="ticket-container">
         <button className="ticket-block" onClick={submitTicket}>
           <span className="ticket-icon">🧾</span>
@@ -24,7 +25,18 @@ export default function WorkOrder() {
             <p className="ticket-description">View the history work order been submitted</p>
           </div>
         </button>
+
+        <div>
+          {ticketData.tickets.map(ticket => (
+            <section key={ticket.id}>
+              <p>id: {ticket.id}</p>
+              <p>content: {ticket.Content}</p>
+              <p>priority: {ticket.Priority}</p>
+              <p>status: {ticket.Status}</p>
+            </section>
+          ))
+          }
+        </div>
       </div> 
-    </>  
     );
 }
