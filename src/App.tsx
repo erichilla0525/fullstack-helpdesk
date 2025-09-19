@@ -1,8 +1,5 @@
-import { useState } from "react";
-import "./App.css";
-import Footer from "./components/Footer";
-import FAQ from "./components/Faq";
-
+import FAQ from "./components/FAQ/Faq";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   return (<> <FAQ/> <Footer/></>

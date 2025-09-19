@@ -1,5 +1,7 @@
 // src/components/FAQ.jsx
-import { faqData } from "../data/faqQandAns";
+
+import { faqData } from "../../data/faqQandAns";
+
 
 const FAQ = () => {
   return (
