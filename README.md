@@ -1,5 +1,7 @@
 ## Technical ticket help desk
 
+### Team name: Three muskeeters
+
 ### Author: 
         Harnoor Gill
         Tong Xu
