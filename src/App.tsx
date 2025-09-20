@@ -1,15 +1,23 @@
-import Header from "./src/components/Header/Header";
-import Nav from "./src/components/Navigation/Nav";
-import StatusList from "./src/components/status-list/StatusList";
+import FAQ from "./components/FAQ/Faq";
+import Footer from "./components/Footer/Footer";
+
+import { useState } from 'react'
+import SearchBar from './components/Searchbar/Searchbar'
+import WorkOrder from './components/Ticket/Ticket'
 
 function App() {
-  return (
-    <div>
-      <Header />
-      <Nav />
-      <StatusList />
-    </div>
+    return(
+        <div>
+            <Header />
+            <Nav />
+            <SearchBar />
+            <WorkOrder />
+            <StatusList />
+            <FAQ/>
+            <Footer/>
+        </div>
   );
 }
 
-export default App;
+export default App;
+
