@@ -9,8 +9,8 @@ function App() {
       <Header />
       <Nav />
       <StatusList />
-      <main>
-        <h2>Welcome to Technical Help Desk</h2>
+      <main className="mt-8">
+        <h2 className="text-2xl font-bold">Welcome to Technical Help Desk</h2>
         <p>
           This application helps you manage IT support requests efficiently.
         </p>
