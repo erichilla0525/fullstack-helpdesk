@@ -8,8 +8,11 @@ import WorkOrder from './components/Ticket/Ticket'
 function App() {
     return(
         <div>
+            <Header />
+            <Nav />
             <SearchBar />
             <WorkOrder />
+            <StatusList />
             <FAQ/>
             <Footer/>
         </div>
@@ -17,3 +20,4 @@ function App() {
 }
 
 export default App;
+
