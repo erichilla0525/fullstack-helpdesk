@@ -1,7 +1,7 @@
 import "./App.css";
-import Header from "./components/Header";
-import Nav from "./components/Nav";
-import StatusList from "./components/status-list/StatusList";
+import Header from "../Header/Header";
+import Nav from "../Navigation/Nav";
+import StatusList from "../status-list/StatusList";
 
 function App() {
   return (
