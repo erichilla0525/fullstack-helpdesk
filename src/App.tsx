@@ -1,7 +1,14 @@
 import { useState } from 'react'
-import './App.css'
+import SearchBar from './components/Searchbar/Searchbar'
+import WorkOrder from './components/Ticket/Ticket'
 
 function App() {
+    return(
+        <div>
+            <SearchBar />
+            <WorkOrder />
+        </div>
+    )
 
 }
 
