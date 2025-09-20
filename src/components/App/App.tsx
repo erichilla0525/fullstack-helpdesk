@@ -16,7 +16,7 @@ function App() {
             <Nav />
             <SearchBar />
             <WorkOrder />
-            <FAQ/>
+            <FAQ />
             <StatusList />
             <Footer/>
         </div>
