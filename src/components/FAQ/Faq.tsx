@@ -1,7 +1,6 @@
 // src/components/FAQ.jsx
-
 import { faqData } from "../../data/faqQandAns";
-
+import Ans from "./Ans";
 
 const FAQ = () => {
   return (
@@ -11,14 +10,12 @@ const FAQ = () => {
       </h2>
 
       <div className="space-y-6">
-        {faqData.map((faq) => (
-          <div 
-            className="p-5 rounded-2xl shadow-md bg-white border border-gray-200"
-          >
+        {faqData.map((faq, index) => (
+          <div key = {index} className="p-5 rounded-2xl shadow-md bg-white border border-gray-200">
             <h3 className="text-lg font-semibold text-gray-800 mb-2">
               {faq.question}
             </h3>
-            <p className="text-gray-600">{faq.answer}</p>
+            <Ans answer={faq.answer} />
           </div>
         ))}
       </div>
