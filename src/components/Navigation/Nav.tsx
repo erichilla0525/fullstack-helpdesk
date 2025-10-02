@@ -1,4 +1,5 @@
 interface NavProps {}
+import { Link } from "react-router-dom";
 
 function Nav({}: NavProps) {
   return (
@@ -19,6 +20,18 @@ function Nav({}: NavProps) {
         <button className="px-4 py-2 border border-gray-300 bg-white text-gray-700 cursor-pointer rounded-md text-sm transition-all duration-200 hover:bg-gray-50 hover:border-gray-400">
           Share
         </button>
+
+        <Link to="/ticketform">
+          <button className="">
+            Submit ticket
+          </button>
+        </Link>
+
+        <Link to="/workorder">
+          <button className="">
+            All tickerts
+          </button>
+        </Link>
       </div>
     </nav>
   );
