@@ -14,7 +14,7 @@ interface SubmitTicketFormProps {
 }
 
 export default function SubmitTicketForm({ tickets, setTickets}: SubmitTicketFormProps) {
-  const [text, setText] = useState("");
+  const [content, setText] = useState("");
   const [priority,  setPriority] = useState("low");
   const [status, setStatus] = useState("open");
 
@@ -23,7 +23,7 @@ export default function SubmitTicketForm({ tickets, setTickets}: SubmitTicketFor
 
     const newTicket: Ticket = {
       id: tickets.length + 1,
-      Content: text,
+      Content: content,
       Priority: priority,
       Status: status,
     };
@@ -40,10 +40,9 @@ export default function SubmitTicketForm({ tickets, setTickets}: SubmitTicketFor
       <input
         type="text"
         placeholder="Waiting for input"
-        value={text}
+        value={content}
         onChange={(event) => setText(event.target.value)}
-        className="border mt-5 text-center"
-      />
+        className="border mt-5 text-center"/>
 
       <select value={priority} onChange={(event) => setPriority(event.target.value)} className="text-center border mt-3">
         <option>low</option>

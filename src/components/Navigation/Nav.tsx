@@ -22,14 +22,14 @@ function Nav({}: NavProps) {
         </button>
 
         <Link to="/ticketform">
-          <button className="">
+          <button className="border bg-wh hover: bg-indigo cursor-pointer px-2 py-1 rounded-md">
             Submit ticket
           </button>
         </Link>
 
         <Link to="/workorder">
-          <button className="">
-            All tickerts
+          <button className="border hover: bg-amber-600 cursor-pointer px-2 py-1 rounded-md">
+            All tickets
           </button>
         </Link>
       </div>
