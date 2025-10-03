@@ -9,11 +9,11 @@ interface WorkOrderProps {
 export default function WorkOrder({ tickets}: WorkOrderProps) {
 
   return(
-      <div className="flex flex-col justify-center mt-5 mb-5 gap-12">
+      <div className="flex flex-col justify-center mt-5 mb-5 gap-12 ">
 
         <div className='mx-auto space-y-3 border-2'>
           {tickets.map(ticket => (
-            <div key={ticket.id}>
+            <div key={ticket.id} className='bg-blue-300'>
               <p>id: {ticket.id}</p>
               <p>content: {ticket.Content}</p>
               <p>priority: {ticket.Priority}</p>

@@ -36,7 +36,7 @@ export default function SubmitTicketForm({ tickets, setTickets}: SubmitTicketFor
   };
 
   return (
-    <form onSubmit={formSubmit} className="w-1/5 mx-auto flex flex-col border font-semibold items-center mt-3 mb-3 ">
+    <form onSubmit={formSubmit} className="w-1/5 mx-auto flex flex-col border font-semibold items-center mt-3 mb-3 bg-blue-50">
       <input
         type="text"
         placeholder="Waiting for input"
