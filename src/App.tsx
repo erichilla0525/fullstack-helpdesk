@@ -1,3 +1,4 @@
+import { Route, Routes } from "react-router-dom";
 import FAQ from "./components/FAQ/Faq";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
@@ -9,14 +10,26 @@ import StatusList from "./components/status-list/StatusList";
 function App() {
     return(
         <div>
-            <Header />
-            <Nav />
-            <SearchBar />
-            <WorkOrder />
-            <StatusList />
-            <FAQ />
-            <Footer />
-        </div>
+      <Header />
+      <Nav />
+
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <SearchBar />
+              <WorkOrder />
+              <StatusList />
+              <FAQ />
+            </>
+          }
+        />
+        <Route path="/faq" element={<FAQ />} />
+      </Routes>
+
+      <Footer />
+    </div>
   );
 }
 
