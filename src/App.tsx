@@ -27,13 +27,21 @@ function App() {
             <Nav />
             <SearchBar />
             <Routes>
-                <Route path="/" element={<WorkOrder tickets={tickets} setTickets={setTickets}/>}/>
-                <Route path="/workorder" element={<WorkOrder tickets={tickets} setTickets={setTickets} />}/>
-                <Route path="/ticketform" element={<SubmitTicketForm tickets={tickets} setTickets={setTickets}/>}/>
+                <Route path="/" element={
+                    <>
+                        <WorkOrder tickets={tickets} setTickets={setTickets} />
+                        <StatusList />
+                        <FAQ />
+                    </>
+                
+                }/>
+                <Route 
+                path="/workorder" 
+                element={<WorkOrder tickets={tickets} setTickets={setTickets} />}/>
+                <Route 
+                path="/ticketform" 
+                element={<SubmitTicketForm tickets={tickets} setTickets={setTickets} />}/>
             </Routes>
-            
-            <StatusList />
-            <FAQ />
             <Footer />
         </div>
         
