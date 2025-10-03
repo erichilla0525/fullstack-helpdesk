@@ -1,17 +1,19 @@
+import FAQ from "./components/FAQ/Faq";
+import Nav from "./components/Navigation/Nav";
+import SearchBar from './components/Searchbar/Searchbar';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState } from "react";
 import Layout from "./components/Layout/Layout";
 import Header from "./components/Header/Header";
-import SearchBar from "./components/Searchbar/Searchbar";
 import WorkOrder from "./components/Ticket/Ticket";
 import StatusList from "./components/status-list/StatusList";
-import FAQ from "./components/FAQ/Faq";
 import Footer from "./components/Footer/Footer";
 import SubmitTicketForm from "./components/Ticket/SubmitTicketForm";
 import type { Ticket } from "./components/Ticket/SubmitTicketForm"
 import ticketData from "./data/ticket.json"
         
 function App() {
+ 
   const [tickets, setTickets] = useState<Ticket[]>(
         ticketData.tickets.map((ticket) => ({
             id: Number(ticket.id), 
@@ -54,6 +56,8 @@ function App() {
           <SubmitTicketForm tickets={tickets} setTickets={setTickets} />
           </>
         }/>
+          
+          <Route path="/faq" element={<FAQ />} />
           
           <Route
             path="/status-tracker" 

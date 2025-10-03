@@ -59,6 +59,10 @@ function Nav({}: NavProps) {
         <button className="px-4 py-2 border border-gray-300 bg-white text-gray-700 cursor-pointer rounded-md text-sm transition-all duration-200 hover:bg-gray-50 hover:border-gray-400">
           Share
         </button>
+        
+        <button className="px-4 py-2 border border-gray-300 bg-white text-gray-700 cursor-pointer rounded-md text-sm transition-all duration-200 hover:bg-gray-50 hover:border-gray-400">
+          <Link to="/faq">FAQ</Link>
+        </button>
 
         <Link to="/ticketform">
           <button className="border bg-wh hover: bg-indigo cursor-pointer px-2 py-1 rounded-md">
@@ -72,7 +76,7 @@ function Nav({}: NavProps) {
           </button>
         </Link>
       </div>
-    </nav>
+    </nav>
   );
 }
 
