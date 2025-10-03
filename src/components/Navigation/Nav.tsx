@@ -16,6 +16,16 @@ function Nav({}: NavProps) {
       </div>
       <div className="flex items-center gap-4">
         <Link
+          to="/status-tracker"
+          className={`px-4 py-2 border border-gray-300 text-gray-700 cursor-pointer rounded-md text-sm transition-all duration-200 hover:bg-gray-50 hover:border-gray-400 no-underline ${
+            isActive("/status-tracker")
+              ? "bg-gray-100 border-gray-400 font-semibold"
+              : "bg-white"
+          }`}
+        >
+          Status Tracker
+        </Link>
+        <Link
           to="/knowledge-base"
           className={`px-4 py-2 border border-gray-300 text-gray-700 cursor-pointer rounded-md text-sm transition-all duration-200 hover:bg-gray-50 hover:border-gray-400 no-underline ${
             isActive("/knowledge-base")
