@@ -1,7 +1,6 @@
 import FAQ from "./components/FAQ/Faq";
-import Nav from "./components/Navigation/Nav";
 import SearchBar from './components/Searchbar/Searchbar';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { useState } from "react";
 import Layout from "./components/Layout/Layout";
 import Header from "./components/Header/Header";
