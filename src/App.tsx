@@ -7,76 +7,84 @@ import WorkOrder from "./components/Ticket/Ticket";
 import StatusList from "./components/status-list/StatusList";
 import FAQ from "./components/FAQ/Faq";
 import Footer from "./components/Footer/Footer";
-
-function HomePage() {
-  return (
-    <div>
-      <Header />
-      <SearchBar />
-      <WorkOrder />
-      <StatusList />
-      <FAQ />
-    </div>
-  );
-}
-
-function StatusTrackerPage() {
-  return (
-    <div className="p-8">
-      <h2 className="text-2xl font-bold mb-4">Status Tracker</h2>
-      <p className="mb-4">Track the status of all help desk tickets</p>
-      <StatusList />
-    </div>
-  );
-}
-
-function KnowledgeBasePage() {
-  return (
-    <div className="p-8">
-      <h2 className="text-2xl font-bold mb-4">Knowledge Base</h2>
-      <p>Browse our knowledge base articles and documentation.</p>
-    </div>
-  );
-}
-
-function ProfilePage() {
-  return (
-    <div className="p-8">
-      <h2 className="text-2xl font-bold mb-4">Profile</h2>
-      <p className="mb-4">Manage your account settings</p>
-      <div className="bg-white p-6 rounded-lg shadow">
-        <h3 className="text-xl font-semibold mb-3">User Information</h3>
-        <p>Username: user@helpdesk.com</p>
-        <p>Role: IT Support Agent</p>
-        <p>Active Tickets: 5</p>
-      </div>
-    </div>
-  );
-}
-
-function LoginPage() {
-  return (
-    <div className="p-8">
-      <h2 className="text-2xl font-bold mb-4">Login</h2>
-      <p>Sign in to your account</p>
-    </div>
-  );
-}
-
+import SubmitTicketForm from "./components/Ticket/SubmitTicketForm";
+import type { Ticket } from "./components/Ticket/SubmitTicketForm"
+import ticketData from "./data/ticket.json"
+        
 function App() {
-  const [sharedMessage, setSharedMessage] = useState<string>(
-    "Welcome to HelpDesk!"
-  );
-
+  const [tickets, setTickets] = useState<Ticket[]>(
+        ticketData.tickets.map((ticket) => ({
+            id: Number(ticket.id), 
+            Content: ticket.Content, 
+            Priority: ticket.Priority,
+            Status: ticket.Status,
+        }))
+);
+  
   return (
     <BrowserRouter>
       <Layout>
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/status-tracker" element={<StatusTrackerPage />} />
-          <Route path="/knowledge-base" element={<KnowledgeBasePage />} />
-          <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/login" element={<LoginPage />} />
+          <Route 
+            path="/" 
+            element={
+            <>  
+                <Header />
+                <SearchBar />
+                <WorkOrder tickets={tickets} setTickets={setTickets} />
+                <StatusList />
+                <FAQ />
+            </>
+          }/>
+          <Route path="/workorder" element={<WorkOrder tickets={tickets} setTickets={setTickets} />}/>
+          <Route path="/ticketform" element={<SubmitTicketForm tickets={tickets} setTickets={setTickets} />}/>
+          
+          <Route
+            path="/status-tracker" 
+            element={
+              <div className="p-8">
+                <h2 className="text-2xl font-bold mb-4">Status Tracker</h2>
+                <p className="mb-4">Track the status of all help desk tickets</p>
+               <StatusList />
+              </div>
+              }
+            />
+          
+          <Route 
+            path="/knowledge-base" 
+            element={
+              <div className="p-8">
+                <h2 className="text-2xl font-bold mb-4">Knowledge Base</h2>
+                <p>Browse our knowledge base articles and documentation.</p>
+              </div>
+              } 
+            />
+          
+          <Route 
+            path="/profile" 
+            element={
+              <div className="p-8">
+                <h2 className="text-2xl font-bold mb-4">Profile</h2>
+                <p className="mb-4">Manage your account settings</p>
+                <div className="bg-white p-6 rounded-lg shadow">
+                  <h3 className="text-xl font-semibold mb-3">User Information</h3>
+                  <p>Username: user@helpdesk.com</p>
+                  <p>Role: IT Support Agent</p>
+                  <p>Active Tickets: 5</p>
+                </div>
+              </div>
+              } 
+            />
+          
+          <Route 
+            path="/login" 
+            element={
+              <div className="p-8">
+                <h2 className="text-2xl font-bold mb-4">Login</h2>
+                <p>Sign in to your account</p>
+              </div>
+              } 
+            />
         </Routes>
         <Footer />
       </Layout>

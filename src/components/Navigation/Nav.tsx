@@ -1,6 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 
 interface NavProps {}
+import { Link } from "react-router-dom";
 
 function Nav({}: NavProps) {
   const location = useLocation();
@@ -58,6 +59,18 @@ function Nav({}: NavProps) {
         <button className="px-4 py-2 border border-gray-300 bg-white text-gray-700 cursor-pointer rounded-md text-sm transition-all duration-200 hover:bg-gray-50 hover:border-gray-400">
           Share
         </button>
+
+        <Link to="/ticketform">
+          <button className="border bg-wh hover: bg-indigo cursor-pointer px-2 py-1 rounded-md">
+            Submit ticket
+          </button>
+        </Link>
+
+        <Link to="/workorder">
+          <button className="border hover: bg-amber-600 cursor-pointer px-2 py-1 rounded-md">
+            All tickets
+          </button>
+        </Link>
       </div>
     </nav>
   );
