@@ -34,7 +34,7 @@ function KnowledgeBasePage() {
   return (
     <div className="p-8">
       <h2 className="text-2xl font-bold mb-4">Knowledge Base</h2>
-      <FAQ />
+      <p>Browse our knowledge base articles and documentation.</p>
     </div>
   );
 }
