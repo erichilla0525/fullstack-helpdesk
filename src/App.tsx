@@ -6,10 +6,12 @@ import { useState } from 'react'
 import SearchBar from './components/Searchbar/Searchbar';
 import WorkOrder from './components/Ticket/Ticket'
 import StatusList from "./components/status-list/StatusList";
+
 import { Routes, Route} from "react-router-dom"
 import SubmitTicketForm from "./components/Ticket/SubmitTicketForm";
 import type { Ticket } from "./components/Ticket/SubmitTicketForm"
 import ticketData from "./data/ticket.json"
+
 
 function App() {
     const [tickets, setTickets] = useState<Ticket[]>(
