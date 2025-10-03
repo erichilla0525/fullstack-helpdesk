@@ -43,8 +43,13 @@ function ProfilePage() {
   return (
     <div className="p-8">
       <h2 className="text-2xl font-bold mb-4">Profile</h2>
-      <p>Manage your account settings</p>
-      <StatusList />
+      <p className="mb-4">Manage your account settings</p>
+      <div className="bg-white p-6 rounded-lg shadow">
+        <h3 className="text-xl font-semibold mb-3">User Information</h3>
+        <p>Username: user@helpdesk.com</p>
+        <p>Role: IT Support Agent</p>
+        <p>Active Tickets: 5</p>
+      </div>
     </div>
   );
 }
