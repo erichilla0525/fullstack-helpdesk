@@ -22,7 +22,7 @@ function App() {
 );
   
   return (
-    <BrowserRouter>
+    <>
       <Layout>
         <Routes>
           <Route 
@@ -36,8 +36,24 @@ function App() {
                 <FAQ />
             </>
           }/>
-          <Route path="/workorder" element={<WorkOrder tickets={tickets} setTickets={setTickets} />}/>
-          <Route path="/ticketform" element={<SubmitTicketForm tickets={tickets} setTickets={setTickets} />}/>
+          
+          <Route 
+          path="/workorder" 
+          element={
+            <>
+            <Header />
+            <WorkOrder tickets={tickets} setTickets={setTickets} />
+            </>
+        }/>
+
+          <Route 
+          path="/ticketform" 
+          element={
+          <>
+          <Header/>
+          <SubmitTicketForm tickets={tickets} setTickets={setTickets} />
+          </>
+        }/>
           
           <Route
             path="/status-tracker" 
@@ -88,8 +104,9 @@ function App() {
         </Routes>
         <Footer />
       </Layout>
-    </BrowserRouter>
+    </>
   );
 }
 
 export default App;
+
