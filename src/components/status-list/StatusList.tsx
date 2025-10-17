@@ -6,9 +6,19 @@ interface StatusItem {
   status: string;
 }
 
-interface StatusListProps {}
+interface Ticket {
+  id: number;
+  Content: string;
+  Priority: string;
+  Status: string;
+}
 
-function StatusList({}: StatusListProps) {
+interface StatusListProps {
+  tickets: Ticket[];
+  setTickets: React.Dispatch<React.SetStateAction<Ticket[]>>;
+}
+
+function StatusList({ tickets, setTickets }: StatusListProps) {
   const initialStatuses: StatusItem[] = [
     { id: 1, service: "Help Desk System", status: "Online" },
     { id: 2, service: "Ticket Database", status: "Connected" },
@@ -47,15 +57,64 @@ function StatusList({}: StatusListProps) {
     setSystemStatuses(systemStatuses.filter((item) => item.id !== id));
   };
 
+  const totalTickets = tickets.length;
+  const openTickets = tickets.filter(
+    (t) => t.Status.toLowerCase() === "open"
+  ).length;
+  const inProgressTickets = tickets.filter(
+    (t) => t.Status.toLowerCase() === "in progress"
+  ).length;
+  const closedTickets = tickets.filter(
+    (t) => t.Status.toLowerCase() === "closed"
+  ).length;
+
+  const handleClearAllTickets = () => {
+    if (window.confirm("Are you sure you want to clear all tickets?")) {
+      setTickets([]);
+    }
+  };
+
   return (
     <section className="status-list p-6">
       <h3 className="text-2xl font-bold mb-4">System Status</h3>
+
+      <div className="mb-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+        <h4 className="text-lg font-semibold mb-3 text-blue-800">
+          Ticket Statistics
+        </h4>
+        <div className="grid grid-cols-4 gap-3">
+          <div className="p-3 bg-white rounded-md shadow-sm">
+            <p className="text-sm text-gray-600">Total Tickets</p>
+            <p className="text-2xl font-bold text-gray-800">{totalTickets}</p>
+          </div>
+          <div className="p-3 bg-white rounded-md shadow-sm">
+            <p className="text-sm text-gray-600">Open</p>
+            <p className="text-2xl font-bold text-green-600">{openTickets}</p>
+          </div>
+          <div className="p-3 bg-white rounded-md shadow-sm">
+            <p className="text-sm text-gray-600">In Progress</p>
+            <p className="text-2xl font-bold text-yellow-600">
+              {inProgressTickets}
+            </p>
+          </div>
+          <div className="p-3 bg-white rounded-md shadow-sm">
+            <p className="text-sm text-gray-600">Closed</p>
+            <p className="text-2xl font-bold text-gray-600">{closedTickets}</p>
+          </div>
+        </div>
+        <button
+          onClick={handleClearAllTickets}
+          className="mt-3 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 text-sm"
+        >
+          Clear All Tickets
+        </button>
+      </div>
 
       <form
         onSubmit={handleAddStatus}
         className="mb-6 p-4 bg-gray-50 rounded-lg"
       >
-        <h4 className="text-lg font-semibold mb-3">Add New Status</h4>
+        <h4 className="text-lg font-semibold mb-3">Add New System Status</h4>
         <div className="flex gap-3 mb-3">
           <input
             type="text"
