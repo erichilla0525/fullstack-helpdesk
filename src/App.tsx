@@ -1,27 +1,15 @@
 import FAQ from "./components/FAQ/Faq";
 import SearchBar from './components/Searchbar/Searchbar';
 import { Routes, Route } from "react-router-dom";
-import { useState } from "react";
 import Layout from "./components/Layout/Layout";
 import Header from "./components/Header/Header";
 import WorkOrder from "./components/Ticket/Ticket";
 import StatusList from "./components/status-list/StatusList";
 import Footer from "./components/Footer/Footer";
 import SubmitTicketForm from "./components/Ticket/SubmitTicketForm";
-import type { Ticket } from "./components/Ticket/SubmitTicketForm"
-import ticketData from "./data/ticket.json"
         
 function App() {
- 
-  const [tickets, setTickets] = useState<Ticket[]>(
-        ticketData.tickets.map((ticket) => ({
-            id: Number(ticket.id), 
-            Content: ticket.Content, 
-            Priority: ticket.Priority,
-            Status: ticket.Status,
-        }))
-);
-  
+   
   return (
     <>
       <Layout>
@@ -32,7 +20,7 @@ function App() {
             <>  
                 <Header />
                 <SearchBar />
-                <WorkOrder tickets={tickets} setTickets={setTickets} />
+                <WorkOrder />
                 <StatusList />
                 <FAQ />
             </>
@@ -43,7 +31,7 @@ function App() {
           element={
             <>
             <Header />
-            <WorkOrder tickets={tickets} setTickets={setTickets} />
+            <WorkOrder />
             </>
         }/>
 
@@ -52,7 +40,7 @@ function App() {
           element={
           <>
           <Header/>
-          <SubmitTicketForm tickets={tickets} setTickets={setTickets} />
+          <SubmitTicketForm />
           </>
         }/>
           
