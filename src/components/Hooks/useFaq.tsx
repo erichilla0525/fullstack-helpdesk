@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { FAQItem } from "../components/FAQ/Faq";
 import * as FaqService from "../services/faqService";
+
 export const useFAQ = (
   faqData: FAQItem[],
   setFaqData: React.Dispatch<React.SetStateAction<FAQItem[]>>
