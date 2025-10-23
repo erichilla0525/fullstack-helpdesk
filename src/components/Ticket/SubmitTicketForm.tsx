@@ -1,9 +1,11 @@
 import { useState } from "react"
 import { useTickets } from "../Hooks/ticketFormHook";
+import { useHover } from "../Hooks/hoverHook";
 
 
 export default function SubmitTicketForm() {
   const { createTicket } = useTickets();
+  const hoverStatus = useHover();
 
   const [content, setText] = useState("");
   const [priority,  setPriority] = useState("low");
@@ -42,7 +44,11 @@ export default function SubmitTicketForm() {
 
       </select>
 
-      <button type="submit" className="text-center border mt-3 mb-5 px-4 py-0.25 hover:bg-indigo">
+      <button type="submit" 
+      onMouseEnter={hoverStatus.onMouseEnter}
+      onMouseLeave={hoverStatus.onMouseLeave}
+      className={`text-center border mt-3 mb-5 px-4 py-1 cursor-pointer
+        ${hoverStatus.isHovered ? "bg-blue-400" : "bg-pink-300"}`}>
         submit
       </button>
     </form>
