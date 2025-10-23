@@ -47,6 +47,4 @@ export function useTickets() {
         createTicket,
         
     }
-
-
 }

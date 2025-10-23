@@ -1,34 +1,18 @@
 import { useState } from "react"
+import { useTickets } from "../Hooks/ticketFormHook";
 
-export interface Ticket {
-  id: number;
-  Content: string;
-  Priority: string;
-  Status: string;
-}
 
-interface SubmitTicketFormProps {
-  tickets: Ticket[];
-  setTickets: React.Dispatch<React.SetStateAction<Ticket[]>>
+export default function SubmitTicketForm() {
+  const { createTicket } = useTickets();
 
-}
-
-export default function SubmitTicketForm({ tickets, setTickets}: SubmitTicketFormProps) {
   const [content, setText] = useState("");
   const [priority,  setPriority] = useState("low");
   const [status, setStatus] = useState("open");
 
-  const formSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const formSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const newTicket: Ticket = {
-      id: tickets.length + 1,
-      Content: content,
-      Priority: priority,
-      Status: status,
-    };
-
-    setTickets([...tickets, newTicket]);
+    await createTicket(content,priority,status)
 
     setText("");
     setPriority("low");
