@@ -48,4 +48,4 @@
     I only included simple UI interaction logic to handle the hover status
 
     Where is this implementation made use of in the project and how?
-    Called in the submitTicketForm component
+    Called in the submitTicketForm componentg
