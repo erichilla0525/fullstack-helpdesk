@@ -1,34 +1,20 @@
 import { useState } from "react"
+import { useTickets } from "../Hooks/ticketFormHook";
+import { useHover } from "../Hooks/hoverHook";
 
-export interface Ticket {
-  id: number;
-  Content: string;
-  Priority: string;
-  Status: string;
-}
 
-interface SubmitTicketFormProps {
-  tickets: Ticket[];
-  setTickets: React.Dispatch<React.SetStateAction<Ticket[]>>
+export default function SubmitTicketForm() {
+  const { createTicket } = useTickets();
+  const hoverStatus = useHover();
 
-}
-
-export default function SubmitTicketForm({ tickets, setTickets}: SubmitTicketFormProps) {
   const [content, setText] = useState("");
   const [priority,  setPriority] = useState("low");
   const [status, setStatus] = useState("open");
 
-  const formSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const formSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const newTicket: Ticket = {
-      id: tickets.length + 1,
-      Content: content,
-      Priority: priority,
-      Status: status,
-    };
-
-    setTickets([...tickets, newTicket]);
+    await createTicket(content,priority,status)
 
     setText("");
     setPriority("low");
@@ -58,7 +44,11 @@ export default function SubmitTicketForm({ tickets, setTickets}: SubmitTicketFor
 
       </select>
 
-      <button type="submit" className="text-center border mt-3 mb-5 px-4 py-0.25 hover:bg-indigo">
+      <button type="submit" 
+      onMouseEnter={hoverStatus.onMouseEnter}
+      onMouseLeave={hoverStatus.onMouseLeave}
+      className={`text-center border mt-3 mb-5 px-4 py-1 cursor-pointer
+        ${hoverStatus.isHovered ? "bg-blue-400" : "bg-pink-300"}`}>
         submit
       </button>
     </form>
