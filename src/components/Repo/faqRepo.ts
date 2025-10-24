@@ -1,5 +1,6 @@
-import type { FAQItem } from "../components/FAQ/Faq";
-import { faqData } from "../data/faqQandAns";
+import { faqData } from "../../data/faqQandAns";
+import type { FAQItem } from "../FAQ/Faq";
+
 
 export function getFAQ() {
   return faqData;

@@ -1,6 +1,6 @@
-import { useState } from "react";
-import type { FAQItem } from "../components/FAQ/Faq";
-import * as FaqService from "../services/faqService";
+import { useState } from "react"; 
+import * as FaqService from "../Services/faqService";
+import type { FAQItem } from "../FAQ/Faq";
 
 export const useFAQ = (
   faqData: FAQItem[],
@@ -15,7 +15,7 @@ export const useFAQ = (
     setFaqData(res);
   };
 
-  const editFAQ = async (id: number, updatedFAQ: FAQItem) => {
+  const editFAQ = async (updatedFAQ: FAQItem) => {
     const res = await FaqService.updateFaq(updatedFAQ);
     setFaqData(res);
   };

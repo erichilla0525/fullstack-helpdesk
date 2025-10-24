@@ -1,4 +1,4 @@
-import FAQ from "./components/FAQ/Faq";
+import FAQ, { type FAQItem } from "./components/FAQ/Faq";
 import SearchBar from "./components/Searchbar/Searchbar";
 import { Routes, Route } from "react-router-dom";
 import { useState } from "react";
@@ -10,7 +10,10 @@ import Footer from "./components/Footer/Footer";
 import SubmitTicketForm from "./components/Ticket/SubmitTicketForm";
 import type { Ticket } from "./components/Ticket/SubmitTicketForm";
 import ticketData from "./data/ticket.json";
-import CreateFAQFrom from "./components/FAQ/CreateFAQFrom";
+import { CreateFaq } from "./components/FAQ/CreateFaq";
+import { faqData as faqList } from "./data/faqQandAns";
+import UpdateFaq from "./components/FAQ/UpdateFaq";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   const [tickets, setTickets] = useState<Ticket[]>(
@@ -21,7 +24,7 @@ function App() {
       Status: ticket.Status,
     }))
   );
-
+  const [faqData, setFaqData] = useState<FAQItem[]>(faqList);
   return (
     <>
       <Layout>
@@ -34,7 +37,7 @@ function App() {
                 <SearchBar />
                 <WorkOrder tickets={tickets} setTickets={setTickets} />
                 <StatusList />
-                <FAQ />
+                <FAQ faqData={faqData} setFaqData={setFaqData} />
               </>
             }
           />
@@ -59,8 +62,18 @@ function App() {
             }
           />
 
-          <Route path="/faq" element={<FAQ />} />
-          <Route path="/faq-form" element={<CreateFAQFrom />} />
+          <Route
+            path="/faq"
+            element={<FAQ faqData={faqData} setFaqData={setFaqData} />}
+          />
+          <Route
+            path="/createFaq"
+            element={<CreateFaq faqData={faqData} setFaqData={setFaqData} />}
+          />
+          <Route
+            path="editFaq/:id"
+            element={<UpdateFaq faqData={faqData} setFaqData={setFaqData} />}
+          />
 
           <Route
             path="/status-tracker"
@@ -113,8 +126,11 @@ function App() {
             }
           />
         </Routes>
+
         <Footer />
       </Layout>
+
+      <ToastContainer />
     </>
   );
 }
