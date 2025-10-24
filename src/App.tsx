@@ -8,14 +8,14 @@ import WorkOrder from "./components/Ticket/Ticket";
 import StatusList from "./components/status-list/StatusList";
 import Footer from "./components/Footer/Footer";
 import SubmitTicketForm from "./components/Ticket/SubmitTicketForm";
-import type { Ticket } from "./components/Ticket/SubmitTicketForm";
-import ticketData from "./data/ticket.json";
 import { CreateFaq } from "./components/FAQ/CreateFaq";
 import { faqData as faqList } from "./data/faqQandAns";
 import UpdateFaq from "./components/FAQ/UpdateFaq";
 import { ToastContainer } from "react-toastify";
 
 function App() {
+
+  const [ faqData, setFaqData ] = useState<FAQItem[]>(faqList)
    
   return (
     <>
@@ -29,7 +29,7 @@ function App() {
                 <SearchBar />
                 <WorkOrder />
                 <StatusList />
-                <FAQ />
+                <FAQ faqData={faqData} setFaqData={setFaqData} />
             </>
           }/>
           
@@ -118,5 +118,4 @@ function App() {
 }
 
 export default App;
-
 
