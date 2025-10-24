@@ -1,4 +1,4 @@
-import FAQ from "./components/FAQ/Faq";
+import FAQ, { type FAQItem } from "./components/FAQ/Faq";
 import SearchBar from './components/Searchbar/Searchbar';
 import { Routes, Route } from "react-router-dom";
 import { useState } from "react";
@@ -8,20 +8,15 @@ import WorkOrder from "./components/Ticket/Ticket";
 import StatusList from "./components/status-list/StatusList";
 import Footer from "./components/Footer/Footer";
 import SubmitTicketForm from "./components/Ticket/SubmitTicketForm";
-import type { Ticket } from "./components/Ticket/SubmitTicketForm"
-import ticketData from "./data/ticket.json"
-        
+import { CreateFaq } from "./components/FAQ/CreateFaq";
+import { faqData as faqList } from "./data/faqQandAns";
+import UpdateFaq from "./components/FAQ/UpdateFaq";
+import { ToastContainer } from "react-toastify";
+
 function App() {
- 
-  const [tickets, setTickets] = useState<Ticket[]>(
-        ticketData.tickets.map((ticket) => ({
-            id: Number(ticket.id), 
-            Content: ticket.Content, 
-            Priority: ticket.Priority,
-            Status: ticket.Status,
-        }))
-);
-  
+
+  const [ faqData, setFaqData ] = useState<FAQItem[]>(faqList)
+   
   return (
     <>
       <Layout>
@@ -32,9 +27,9 @@ function App() {
             <>  
                 <Header />
                 <SearchBar />
-                <WorkOrder tickets={tickets} setTickets={setTickets} />
+                <WorkOrder />
                 <StatusList />
-                <FAQ />
+                <FAQ faqData={faqData} setFaqData={setFaqData} />
             </>
           }/>
           
@@ -43,7 +38,7 @@ function App() {
           element={
             <>
             <Header />
-            <WorkOrder tickets={tickets} setTickets={setTickets} />
+            <WorkOrder />
             </>
         }/>
 
@@ -52,11 +47,22 @@ function App() {
           element={
           <>
           <Header/>
-          <SubmitTicketForm tickets={tickets} setTickets={setTickets} />
+          <SubmitTicketForm />
           </>
         }/>
           
-          <Route path="/faq" element={<FAQ />} />
+         <Route
+            path="/faq"
+            element={<FAQ faqData={faqData} setFaqData={setFaqData} />}
+          />
+          <Route
+            path="/createFaq"
+            element={<CreateFaq faqData={faqData} setFaqData={setFaqData} />}
+          />
+          <Route
+            path="editFaq/:id"
+            element={<UpdateFaq faqData={faqData} setFaqData={setFaqData} />}
+          />
           
           <Route
             path="/status-tracker" 
