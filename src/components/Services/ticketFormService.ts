@@ -9,6 +9,10 @@ export async function createTicket(ticket: { content:string, priority:string, st
     return await ticketRepo.createTicket(ticket)
 }
 
+export async function deleteTicket(id:string) {
+    return await ticketRepo.deleteTicket(id);
+}
+
 export async function validateTicket(ticket: { content:string, priority:string, status:string }) {
     const validateErrors = new Map<string, string>();
 

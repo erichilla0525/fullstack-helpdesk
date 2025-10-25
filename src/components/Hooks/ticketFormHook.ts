@@ -37,6 +37,15 @@ export function useTickets() {
         }
     }
 
+    async function deleteTicket(id:string) {
+        try {
+            await TicketService.deleteTicket(id);
+            await fetchTickets();
+        } catch (errorObject) {
+            setError(`${errorObject}`);
+        }
+    }
+
     useEffect(() => {
         fetchTickets();
     }, []);
@@ -45,6 +54,7 @@ export function useTickets() {
         tickets,
         error,
         createTicket,
+        deleteTicket
         
     }
 }

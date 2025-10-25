@@ -4,6 +4,7 @@ import { useFAQ } from "../Hooks/useFaq";
 import { useNavigate } from "react-router-dom";
 import * as FaqService from "../Services/faqService";
 import { toast } from "react-toastify";
+import { useHover } from "../Hooks/hoverHook";
 interface FAQFormProps {
   id?: number | undefined;
   mode: "create" | "edit";
@@ -11,6 +12,7 @@ interface FAQFormProps {
   setFaqData: React.Dispatch<React.SetStateAction<FAQItem[]>>;
 }
 const FAQForm = ({ id, faqData, setFaqData, mode }: FAQFormProps) => {
+  const hoverStatus = useHover();
   const { addFAQ, editFAQ } = useFAQ(faqData, setFaqData);
   const [faq, setFaq] = useState<FAQItem>({ id: 0, question: "", answer: "" });
   const [errors, setErrors] = useState<Map<string, string>>(new Map());
@@ -84,7 +86,10 @@ const FAQForm = ({ id, faqData, setFaqData, mode }: FAQFormProps) => {
         )}
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white font-medium py-2 rounded hover:bg-blue-700 transition"
+          onMouseEnter={hoverStatus.onMouseEnter}
+          onMouseLeave={hoverStatus.onMouseLeave}
+          className= {`w-full bg-blue-600 text-white font-medium py-2 rounded
+            ${hoverStatus.isHovered ? "bg-pink-300" : "bg-lightGreen"} `}
         >
           {mode === "create" ? "Add FAQ" : "Update FAQ"}
         </button>
