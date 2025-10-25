@@ -17,4 +17,5 @@ export async function deleteTicket(id:string) {
         throw new Error(`Failed to delete ticket with id ${id}`);
     }
     ticketData.splice(index, 1);
+    return ticketData
 }
