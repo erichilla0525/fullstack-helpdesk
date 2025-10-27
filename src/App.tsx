@@ -11,11 +11,9 @@ import SubmitTicketForm from "./components/Ticket/SubmitTicketForm";
 import { CreateFaq } from "./components/FAQ/CreateFaq";
 import { faqData as faqList } from "./data/faqQandAns";
 import UpdateFaq from "./components/FAQ/UpdateFaq";
-import { useTickets } from "./components/Hooks/ticketFormHook";
 
 function App() {
   const [faqData, setFaqData] = useState<FAQItem[]>(faqList);
-  const { tickets } = useTickets();
 
   return (
     <>
@@ -27,7 +25,7 @@ function App() {
               <>
                 <Header />
                 <SearchBar />
-                <WorkOrder tickets={tickets} setTickets={() => {}} />
+                <WorkOrder />
                 <StatusList />
                 <FAQ faqData={faqData} setFaqData={setFaqData} />
               </>
@@ -39,7 +37,7 @@ function App() {
             element={
               <>
                 <Header />
-                <WorkOrder tickets={tickets} setTickets={() => {}} />
+                <WorkOrder />
               </>
             }
           />
