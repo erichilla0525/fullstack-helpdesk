@@ -1,32 +1,22 @@
 import { useState } from "react";
 import { useTickets } from "../Hooks/ticketFormHook";
-
-interface StatusItem {
-  id: number;
-  service: string;
-  status: string;
-}
+import { useSystemStatus } from "../Hooks/useSystemStatus";
 
 interface StatusListProps {}
 
 function StatusList({}: StatusListProps) {
-  const { tickets, error, deleteTicket } = useTickets();
-
-  const initialStatuses: StatusItem[] = [
-    { id: 1, service: "Help Desk System", status: "Online" },
-    { id: 2, service: "Ticket Database", status: "Connected" },
-    { id: 3, service: "Email Service", status: "Active" },
-    { id: 4, service: "User Authentication", status: "Working" },
-    { id: 5, service: "File Upload", status: "Available" },
-  ];
-
-  const [systemStatuses, setSystemStatuses] =
-    useState<StatusItem[]>(initialStatuses);
+  const { tickets, error: ticketError, deleteTicket } = useTickets();
+  const {
+    systemStatuses,
+    error: statusError,
+    createStatus,
+    deleteStatus,
+  } = useSystemStatus();
 
   const [newService, setNewService] = useState<string>("");
   const [newStatus, setNewStatus] = useState<string>("");
 
-  const handleAddStatus = (e: React.FormEvent) => {
+  const handleAddStatus = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (newService.trim() === "" || newStatus.trim() === "") {
@@ -34,20 +24,13 @@ function StatusList({}: StatusListProps) {
       return;
     }
 
-    const newItem: StatusItem = {
-      id: Date.now(),
-      service: newService.trim(),
-      status: newStatus.trim(),
-    };
-
-    setSystemStatuses([...systemStatuses, newItem]);
-
+    await createStatus(newService.trim(), newStatus.trim());
     setNewService("");
     setNewStatus("");
   };
 
-  const handleRemoveStatus = (id: number) => {
-    setSystemStatuses(systemStatuses.filter((item) => item.id !== id));
+  const handleRemoveStatus = async (id: string) => {
+    await deleteStatus(id);
   };
 
   const totalTickets = tickets.length;
@@ -76,9 +59,15 @@ function StatusList({}: StatusListProps) {
     <section className="status-list p-6">
       <h3 className="text-2xl font-bold mb-4">System Status</h3>
 
-      {error && (
+      {ticketError && (
         <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-md text-red-700">
-          Error: {error}
+          Ticket Error: {ticketError}
+        </div>
+      )}
+
+      {statusError && (
+        <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-md text-red-700">
+          Status Error: {statusError}
         </div>
       )}
 
