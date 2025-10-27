@@ -1,17 +1,22 @@
-import FAQ from "./components/FAQ/Faq";
-import SearchBar from "./components/Searchbar/Searchbar";
-import { Routes, Route } from "react-router-dom";
 import { useState } from "react";
+import { Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout/Layout";
 import Header from "./components/Header/Header";
+import Footer from "./components/Footer/Footer";
+import SearchBar from "./components/Searchbar/Searchbar";
 import WorkOrder from "./components/Ticket/Ticket";
 import StatusList from "./components/status-list/StatusList";
-import Footer from "./components/Footer/Footer";
-import SubmitTicketForm from "./components/Ticket/SubmitTicketForm";
-import type { Ticket } from "./components/Ticket/SubmitTicketForm";
+import SubmitTicketForm, { type Ticket } from "./components/Ticket/SubmitTicketForm";
 import ticketData from "./data/ticket.json";
 
+import FAQ, { type FAQItem } from "./components/FAQ/Faq";
+import { CreateFaq } from "./components/FAQ/CreateFaq";
+import UpdateFaq from "./components/FAQ/UpdateFaq";
+import { faqData as faqList } from "./data/faqQandAns";
+import { ToastContainer } from "react-toastify";
+
 function App() {
+  // Ticket state
   const [tickets, setTickets] = useState<Ticket[]>(
     ticketData.tickets.map((ticket) => ({
       id: Number(ticket.id),
@@ -20,6 +25,9 @@ function App() {
       Status: ticket.Status,
     }))
   );
+
+  // FAQ state
+  const [faqData, setFaqData] = useState<FAQItem[]>(faqList);
 
   return (
     <>
@@ -33,7 +41,7 @@ function App() {
                 <SearchBar />
                 <WorkOrder tickets={tickets} setTickets={setTickets} />
                 <StatusList tickets={tickets} setTickets={setTickets} />
-                <FAQ />
+                <FAQ faqData={faqData} setFaqData={setFaqData} />
               </>
             }
           />
@@ -58,16 +66,27 @@ function App() {
             }
           />
 
-          <Route path="/faq" element={<FAQ />} />
+          <Route
+            path="/faq"
+            element={<FAQ faqData={faqData} setFaqData={setFaqData} />}
+          />
+
+          <Route
+            path="/createFaq"
+            element={<CreateFaq faqData={faqData} setFaqData={setFaqData} />}
+          />
+
+          <Route
+            path="/editFaq/:id"
+            element={<UpdateFaq faqData={faqData} setFaqData={setFaqData} />}
+          />
 
           <Route
             path="/status-tracker"
             element={
               <div className="p-8">
                 <h2 className="text-2xl font-bold mb-4">Status Tracker</h2>
-                <p className="mb-4">
-                  Track the status of all help desk tickets
-                </p>
+                <p className="mb-4">Track the status of all help desk tickets</p>
                 <StatusList tickets={tickets} setTickets={setTickets} />
               </div>
             }
@@ -90,9 +109,7 @@ function App() {
                 <h2 className="text-2xl font-bold mb-4">Profile</h2>
                 <p className="mb-4">Manage your account settings</p>
                 <div className="bg-white p-6 rounded-lg shadow">
-                  <h3 className="text-xl font-semibold mb-3">
-                    User Information
-                  </h3>
+                  <h3 className="text-xl font-semibold mb-3">User Information</h3>
                   <p>Username: user@helpdesk.com</p>
                   <p>Role: IT Support Agent</p>
                   <p>Active Tickets: 5</p>
@@ -112,6 +129,7 @@ function App() {
           />
         </Routes>
         <Footer />
+        <ToastContainer />
       </Layout>
     </>
   );
