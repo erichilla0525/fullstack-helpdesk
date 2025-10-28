@@ -1,29 +1,22 @@
 import { useState } from "react";
-
-interface StatusItem {
-  id: number;
-  service: string;
-  status: string;
-}
+import { useTickets } from "../Hooks/ticketFormHook";
+import { useSystemStatus } from "../Hooks/useSystemStatus";
 
 interface StatusListProps {}
 
 function StatusList({}: StatusListProps) {
-  const initialStatuses: StatusItem[] = [
-    { id: 1, service: "Help Desk System", status: "Online" },
-    { id: 2, service: "Ticket Database", status: "Connected" },
-    { id: 3, service: "Email Service", status: "Active" },
-    { id: 4, service: "User Authentication", status: "Working" },
-    { id: 5, service: "File Upload", status: "Available" },
-  ];
-
-  const [systemStatuses, setSystemStatuses] =
-    useState<StatusItem[]>(initialStatuses);
+  const { tickets, error: ticketError, deleteTicket } = useTickets();
+  const {
+    systemStatuses,
+    error: statusError,
+    createStatus,
+    deleteStatus,
+  } = useSystemStatus();
 
   const [newService, setNewService] = useState<string>("");
   const [newStatus, setNewStatus] = useState<string>("");
 
-  const handleAddStatus = (e: React.FormEvent) => {
+  const handleAddStatus = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (newService.trim() === "" || newStatus.trim() === "") {
@@ -31,31 +24,90 @@ function StatusList({}: StatusListProps) {
       return;
     }
 
-    const newItem: StatusItem = {
-      id: Date.now(),
-      service: newService.trim(),
-      status: newStatus.trim(),
-    };
-
-    setSystemStatuses([...systemStatuses, newItem]);
-
+    await createStatus(newService.trim(), newStatus.trim());
     setNewService("");
     setNewStatus("");
   };
 
-  const handleRemoveStatus = (id: number) => {
-    setSystemStatuses(systemStatuses.filter((item) => item.id !== id));
+  const handleRemoveStatus = async (id: string) => {
+    await deleteStatus(id);
+  };
+
+  const totalTickets = tickets.length;
+  const openTickets = tickets.filter(
+    (t) => t.status.toLowerCase() === "open"
+  ).length;
+  const pendingTickets = tickets.filter(
+    (t) => t.status.toLowerCase() === "pending"
+  ).length;
+  const closedTickets = tickets.filter(
+    (t) => t.status.toLowerCase() === "closed"
+  ).length;
+
+  const handleClearAllTickets = async () => {
+    if (window.confirm("Are you sure you want to clear all tickets?")) {
+      try {
+        const deletePromises = tickets.map((ticket) => deleteTicket(ticket.id));
+        await Promise.all(deletePromises);
+      } catch (err) {
+        console.error("Error clearing tickets:", err);
+      }
+    }
   };
 
   return (
     <section className="status-list p-6">
       <h3 className="text-2xl font-bold mb-4">System Status</h3>
 
+      {ticketError && (
+        <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-md text-red-700">
+          Ticket Error: {ticketError}
+        </div>
+      )}
+
+      {statusError && (
+        <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-md text-red-700">
+          Status Error: {statusError}
+        </div>
+      )}
+
+      <div className="mb-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+        <h4 className="text-lg font-semibold mb-3 text-blue-800">
+          Ticket Statistics
+        </h4>
+        <div className="grid grid-cols-4 gap-3">
+          <div className="p-3 bg-white rounded-md shadow-sm">
+            <p className="text-sm text-gray-600">Total Tickets</p>
+            <p className="text-2xl font-bold text-gray-800">{totalTickets}</p>
+          </div>
+          <div className="p-3 bg-white rounded-md shadow-sm">
+            <p className="text-sm text-gray-600">Open</p>
+            <p className="text-2xl font-bold text-green-600">{openTickets}</p>
+          </div>
+          <div className="p-3 bg-white rounded-md shadow-sm">
+            <p className="text-sm text-gray-600">Pending</p>
+            <p className="text-2xl font-bold text-yellow-600">
+              {pendingTickets}
+            </p>
+          </div>
+          <div className="p-3 bg-white rounded-md shadow-sm">
+            <p className="text-sm text-gray-600">Closed</p>
+            <p className="text-2xl font-bold text-gray-600">{closedTickets}</p>
+          </div>
+        </div>
+        <button
+          onClick={handleClearAllTickets}
+          className="mt-3 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 text-sm"
+        >
+          Clear All Tickets
+        </button>
+      </div>
+
       <form
         onSubmit={handleAddStatus}
         className="mb-6 p-4 bg-gray-50 rounded-lg"
       >
-        <h4 className="text-lg font-semibold mb-3">Add New Status</h4>
+        <h4 className="text-lg font-semibold mb-3">Add New System Status</h4>
         <div className="flex gap-3 mb-3">
           <input
             type="text"
