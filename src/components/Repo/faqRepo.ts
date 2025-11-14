@@ -1,5 +1,5 @@
 import type { FAQItem } from "../FAQ/Faq";
-const BASE_URL = `${import.meta.env.VITE_API_BASE_URL}/api/v1`;
+const BASE_URL = `${import.meta.env.VITE_API_BASE_URL}/api`;
 
 export async function getFAQ() {
   const response = await fetch(`${BASE_URL}/faq`);
@@ -7,7 +7,7 @@ export async function getFAQ() {
     throw new Error("Failed to fetch faq");
   }
   const json = await response.json();
-  return json;
+  return json.data;
 }
 
 export async function createFAQ(faq: FAQItem) {
