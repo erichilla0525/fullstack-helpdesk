@@ -1,21 +1,30 @@
-import { ticketData } from "../../data/mockedData/mockedTicketFormData";
+const data_base = "http://localhost:4000/api/tickets"
 
-export function getTickets() {
-    return ticketData;
+export async function getTickets() {
+    const res = await fetch(data_base)
+    if (!res) throw new Error("Failed to fetch tickets from database")
+    const result = await res.json()
+    return result.data;
 }
 
 export async function createTicket(newTicket: { content:string, priority:string, status:string }) {
-    const id = (ticketData.length + 1).toString();
-    const ticket = { id, ...newTicket };
-    ticketData.push(ticket)
-    return ticket
+    const res = await fetch(data_base, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newTicket)
+    })
+
+    const result = await res.json()
+    return result.data;
 }
 
 export async function deleteTicket(id:string) {
-    const index = ticketData.findIndex((e) => e.id === id);
-    if (index === -1) {
-        throw new Error(`Failed to delete ticket with id ${id}`);
-    }
-    ticketData.splice(index, 1);
-    return ticketData
+    const res = await fetch(`${data_base}/${id}`, {
+        method: "DELETE",
+
+    });
+    const result = await res.json();
+    return result.data
 }
