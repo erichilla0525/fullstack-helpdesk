@@ -1,7 +1,6 @@
-import FAQ, { type FAQItem } from "./components/FAQ/Faq";
+import FAQ from "./components/FAQ/Faq";
 import SearchBar from "./components/Searchbar/Searchbar";
 import { Routes, Route } from "react-router-dom";
-import { useState } from "react";
 import Layout from "./components/Layout/Layout";
 import Header from "./components/Header/Header";
 import WorkOrder from "./components/Ticket/Ticket";
@@ -9,11 +8,9 @@ import StatusList from "./components/status-list/StatusList";
 import Footer from "./components/Footer/Footer";
 import SubmitTicketForm from "./components/Ticket/SubmitTicketForm";
 import { CreateFaq } from "./components/FAQ/CreateFaq";
-import { faqData as faqList } from "./data/faqQandAns";
 import UpdateFaq from "./components/FAQ/UpdateFaq";
 
 function App() {
-  const [faqData, setFaqData] = useState<FAQItem[]>(faqList);
 
   return (
     <>
@@ -27,7 +24,7 @@ function App() {
                 <SearchBar />
                 <WorkOrder />
                 <StatusList />
-                <FAQ faqData={faqData} setFaqData={setFaqData} />
+                <FAQ/>
               </>
             }
           />
@@ -52,18 +49,9 @@ function App() {
             }
           />
 
-          <Route
-            path="/faq"
-            element={<FAQ faqData={faqData} setFaqData={setFaqData} />}
-          />
-          <Route
-            path="/createFaq"
-            element={<CreateFaq faqData={faqData} setFaqData={setFaqData} />}
-          />
-          <Route
-            path="editFaq/:id"
-            element={<UpdateFaq faqData={faqData} setFaqData={setFaqData} />}
-          />
+          <Route path="/faq" element={<FAQ />} />
+          <Route path="/createFaq" element={<CreateFaq />} />
+          <Route path="editFaq/:id" element={<UpdateFaq />} />
 
           <Route
             path="/status-tracker"
