@@ -7,8 +7,8 @@ export default function SubmitTicketForm() {
   const hoverStatus = useHover();
 
   const [content, setText] = useState("");
-  const [priority,  setPriority] = useState("low");
-  const [status, setStatus] = useState("open");
+  const [priority,  setPriority] = useState("Low");
+  const [status, setStatus] = useState("Open");
 
   const formSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -31,7 +31,7 @@ export default function SubmitTicketForm() {
           className="border mt-5 text-center"/>
 
         <select value={priority} onChange={(event) => setPriority(event.target.value)} className="text-center border mt-3">
-          <option>low</option>
+          <option>Low</option>
           <option>Medium</option>
           <option>High</option>
 
@@ -54,8 +54,6 @@ export default function SubmitTicketForm() {
 
       </form>
     </main>
-
-    
   );
 
 }
