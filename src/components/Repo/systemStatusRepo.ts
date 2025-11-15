@@ -6,10 +6,10 @@ export interface SystemStatus {
   updatedAt: string;
 }
 
-const API_BASE_URL = "http://localhost:3000/api/v1";
+const BASE_URL = `${import.meta.env.VITE_API_BASE_URL}/api`;
 
 export async function fetchSystemStatuses(): Promise<SystemStatus[]> {
-  const response = await fetch(`${API_BASE_URL}/statuses`);
+  const response = await fetch(`${BASE_URL}/statuses`);
   
   if (!response.ok) {
     throw new Error("Failed to fetch statuses");
@@ -20,7 +20,7 @@ export async function fetchSystemStatuses(): Promise<SystemStatus[]> {
 }
 
 export async function fetchSystemStatusById(id: number): Promise<SystemStatus> {
-  const response = await fetch(`${API_BASE_URL}/statuses/${id}`);
+  const response = await fetch(`${BASE_URL}/statuses/${id}`);
   
   if (!response.ok) {
     throw new Error("Failed to fetch status");
@@ -33,7 +33,7 @@ export async function fetchSystemStatusById(id: number): Promise<SystemStatus> {
 export async function createSystemStatus(
   status: Omit<SystemStatus, "id" | "createdAt" | "updatedAt">
 ): Promise<SystemStatus> {
-  const response = await fetch(`${API_BASE_URL}/statuses`, {
+  const response = await fetch(`${BASE_URL}/statuses`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(status),
@@ -48,7 +48,7 @@ export async function createSystemStatus(
 }
 
 export async function deleteSystemStatus(id: number): Promise<void> {
-  const response = await fetch(`${API_BASE_URL}/statuses/${id}`, {
+  const response = await fetch(`${BASE_URL}/statuses/${id}`, {
     method: "DELETE",
   });
   
