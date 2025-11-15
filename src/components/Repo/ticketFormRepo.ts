@@ -1,21 +1,30 @@
-import { ticketData } from "../../data/mockedData/mockedTicketFormData";
+const BASE_URL = `${import.meta.env.VITE_API_BASE_URL}/api/tickets`;
 
-export function getTickets() {
-    return ticketData;
+export async function getTickets() {
+    const res = await fetch(BASE_URL)
+    if (!res) throw new Error("Failed to fetch tickets from database")
+    const result = await res.json()
+    return result.data;
 }
 
 export async function createTicket(newTicket: { content:string, priority:string, status:string }) {
-    const id = (ticketData.length + 1).toString();
-    const ticket = { id, ...newTicket };
-    ticketData.push(ticket)
-    return ticket
+    const res = await fetch(BASE_URL, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newTicket)
+    })
+
+    const result = await res.json()
+    return result.data;
 }
 
 export async function deleteTicket(id:string) {
-    const index = ticketData.findIndex((e) => e.id === id);
-    if (index === -1) {
-        throw new Error(`Failed to delete ticket with id ${id}`);
-    }
-    ticketData.splice(index, 1);
-    return ticketData
+    const res = await fetch(`${BASE_URL}/${id}`, {
+        method: "DELETE",
+
+    });
+    const result = await res.json();
+    return result.data
 }

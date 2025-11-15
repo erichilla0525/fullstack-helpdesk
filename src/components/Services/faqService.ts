@@ -1,5 +1,5 @@
 import type { FAQItem } from "../FAQ/Faq";
-import * as faqRepo from "../Repo/faqRepo"; 
+import * as faqRepo from "../Repo/faqRepo";
 
 export async function fetchFaq() {
   const faq = await faqRepo.getFAQ();
@@ -30,7 +30,7 @@ export async function ValidateFaq(faq: FAQItem) {
     validationErrors.set("answer", "Answer must be at least 3 characters long");
 
   const isDuplicate = faqData.find(
-    (item) =>
+    (item: FAQItem) =>
       item.question.trim().toLowerCase() ===
         faq.question.trim().toLowerCase() && item.id !== faq.id
   );

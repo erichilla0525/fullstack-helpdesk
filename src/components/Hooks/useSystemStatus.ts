@@ -20,6 +20,29 @@ export function useSystemStatus() {
     }
   }
 
+  async function createStatus(service: string, status: string) {
+    try {
+      const newStatus = await SystemStatusService.createSystemStatus({
+        service,
+        status,
+      });
+      setSystemStatuses((prev) => [...prev, newStatus]);
+      setError(null);
+    } catch (errorObject) {
+      setError(`${errorObject}`);
+    }
+  }
+
+  async function deleteStatus(id: number) {
+    try {
+      await SystemStatusService.deleteSystemStatus(id);
+      await fetchStatuses();
+      setError(null);
+    } catch (errorObject) {
+      setError(`${errorObject}`);
+    }
+  }
+
   useEffect(() => {
     fetchStatuses();
   }, []);
@@ -29,5 +52,7 @@ export function useSystemStatus() {
     error,
     loading,
     refetch: fetchStatuses,
+    createStatus,
+    deleteStatus,
   };
 }
