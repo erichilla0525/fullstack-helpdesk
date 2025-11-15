@@ -1,40 +1,57 @@
-import { faqData } from "../../data/faqQandAns";
 import type { FAQItem } from "../FAQ/Faq";
+const BASE_URL = `${import.meta.env.VITE_API_BASE_URL}/api`;
 
-
-export function getFAQ() {
-  return faqData;
+export async function getFAQ() {
+  const response = await fetch(`${BASE_URL}/faq`);
+  if (!response.ok) {
+    throw new Error("Failed to fetch faq");
+  }
+  const json = await response.json();
+  return json.data;
 }
 
 export async function createFAQ(faq: FAQItem) {
-  const nextId =
-    faqData.length > 0 ? Math.max(...faqData.map((f) => f.id)) + 1 : 1;
-
-  faqData.push({
-    id: faq.id ?? nextId,
-    question: faq.question,
-    answer: faq.answer,
+  const createResponse: Response = await fetch(`${BASE_URL}/faq/create`, {
+    method: "POST",
+    body: JSON.stringify({ ...faq }),
+    headers: {
+      "Content-Type": "application/json",
+    },
   });
-  return faqData;
+
+  if (!createResponse.ok) {
+    throw new Error(`Failed to create faq`);
+  }
+
+  const json = await createResponse.json();
+  return json.data;
 }
 export async function deleteFaq(id: string | number) {
-  const index = faqData.findIndex((t) => t.id == id);
-  if (index > -1) {
-    faqData.splice(index, 1);
+  const faqResponse: Response = await fetch(`${BASE_URL}/faq/delete/${id}`, {
+    method: "DELETE",
+  });
+
+  if (!faqResponse.ok) {
+    throw new Error(`Failed to delete with id ${id}`);
   }
-  return faqData;
 }
 
 export async function updateFaq(faq: FAQItem) {
-  const foundFaqIndex = faqData.findIndex((t) => t.id == faq.id);
+  const updateResponse: Response = await fetch(
+    `${BASE_URL}/faq/update/${faq.id}`,
+    {
+      method: "PUT",
 
-  if (foundFaqIndex === -1) {
-    throw new Error(`Failed to update faq with ${faq.id}`);
+      body: JSON.stringify({ ...faq }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  if (!updateResponse.ok) {
+    throw new Error(`Failed to update Role with id ${faq.id}`);
   }
-  faqData[foundFaqIndex] = {
-    id: faq.id ?? faqData[foundFaqIndex].id,
-    question: faq.question,
-    answer: faq.answer,
-  };
-  return faqData;
+  const json = await updateResponse.json();
+  return json;
 }

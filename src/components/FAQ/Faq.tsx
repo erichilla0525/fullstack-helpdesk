@@ -1,24 +1,16 @@
-
 import Ans from "./Ans";
 import { Link, useNavigate } from "react-router-dom";
 import { Edit, Trash2 } from "lucide-react";
 import { useFAQ } from "../Hooks/useFaq";
 import { toast } from "react-toastify";
 export interface FAQItem {
-  id?: number;
+  id?: number | string;
   question: string;
   answer: string;
 }
-interface FAQProps {
-  faqData: FAQItem[];
-  setFaqData: React.Dispatch<React.SetStateAction<FAQItem[]>>;
-}
 
-const FAQ: React.FC<FAQProps> = ({ faqData, setFaqData }) => {
-  const { searchTerm, setSearchTerm, deleteFAQ, filteredFAQs } = useFAQ(
-    faqData,
-    setFaqData
-  );
+const FAQ = () => {
+  const { searchTerm, setSearchTerm, deleteFAQ, filteredFAQs } = useFAQ();
 
   const navigate = useNavigate();
   return (
@@ -65,7 +57,7 @@ const FAQ: React.FC<FAQProps> = ({ faqData, setFaqData }) => {
                     </button>
                     <button
                       onClick={() => {
-                        if (faq.id !== undefined) deleteFAQ(faq.id);
+                        if (faq.id !== undefined) deleteFAQ(faq?.id);
                         toast.success("FAQ deleted successfully!");
                       }}
                       className="p-2 rounded-full bg-red-50 hover:bg-red-100 text-red-600 transition-colors"
