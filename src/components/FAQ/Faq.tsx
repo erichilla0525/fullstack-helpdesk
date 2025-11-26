@@ -1,7 +1,7 @@
 import Ans from "./Ans";
 import { Link, useNavigate } from "react-router-dom";
 import { Edit, Trash2 } from "lucide-react";
-import { useFAQ } from "../Hooks/useFaq";
+import { useFAQ } from "../../Hooks/useFaq";
 import { toast } from "react-toastify";
 export interface FAQItem {
   id?: number | string;

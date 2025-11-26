@@ -1,5 +1,5 @@
-import { useTickets } from "../Hooks/ticketFormHook";
-import type { Ticket } from "../Hooks/ticketFormHook";
+import { useTickets } from "../../Hooks/ticketFormHook";
+import type { Ticket } from "../../Hooks/ticketFormHook";
 import { Trash2 } from "lucide-react"
 
 export default function WorkOrder() {

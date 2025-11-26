@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import { useFAQ } from "../Hooks/useFaq";
-import { useHover } from "../Hooks/hoverHook";
+import { useFAQ } from "../../Hooks/useFaq";
+import { useHover } from "../../Hooks/hoverHook";
 interface FAQFormProps {
   id?: number | string | undefined;
   mode: "create" | "edit";
