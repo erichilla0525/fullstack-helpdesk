@@ -1,6 +1,6 @@
 import { useState } from "react"
-import { useTickets } from "../Hooks/ticketFormHook";
-import { useHover } from "../Hooks/hoverHook";
+import { useTickets } from "../../Hooks/ticketFormHook";
+import { useHover } from "../../Hooks/hoverHook";
 
 export default function SubmitTicketForm() {
   const { createTicket } = useTickets();

@@ -1,4 +1,4 @@
-import { useStatusForm } from "../Hooks/useStatusForm";
+import { useStatusForm } from "../../Hooks/useStatusForm";
 
 interface StatusFormProps {
   onAddStatus: (service: string, status: string) => Promise<void>;

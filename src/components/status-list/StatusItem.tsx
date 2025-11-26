@@ -1,4 +1,4 @@
-import type { SystemStatus } from "../Repo/systemStatusRepo";
+import type { SystemStatus } from "../../Repo/systemStatusRepo";
 
 interface StatusItemProps {
   status: SystemStatus;
