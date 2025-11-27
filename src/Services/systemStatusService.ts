@@ -16,10 +16,15 @@ export async function createSystemStatus(statusData: {
   if (!statusData.service.trim() || !statusData.status.trim()) {
     throw new Error("Service and status are required");
   }
-  return await SystemStatusRepo.createSystemStatus(statusData);
+  const data = {
+    name: statusData.service,
+    color: "#000000"
+  }
+  
+  return await SystemStatusRepo.createSystemStatus(data);
 }
 
-export async function deleteSystemStatus(id: string): Promise<void> {
+export async function deleteSystemStatus(id: number): Promise<void> {
   if (!id) {
     throw new Error("ID is required to delete a system status");
   }
