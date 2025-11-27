@@ -2,6 +2,7 @@ import { useLocation } from "react-router-dom";
 
 interface NavProps {}
 import { Link } from "react-router-dom";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
 
 function Nav({}: NavProps) {
   const location = useLocation();
@@ -46,16 +47,18 @@ function Nav({}: NavProps) {
         >
           Profile
         </Link>
-        <Link
-          to="/login"
-          className={`px-4 py-2 border border-gray-300 text-gray-700 cursor-pointer rounded-md text-sm transition-all duration-200 hover:bg-gray-50 hover:border-gray-400 no-underline ${
-            isActive("/login")
-              ? "bg-gray-100 border-gray-400 font-semibold"
-              : "bg-white"
-          }`}
-        >
-          Login
-        </Link>
+
+        <SignedOut>
+          <SignInButton>
+            <button className="px-4 py-2 border border-gray-300 bg-white text-gray-700 cursor-pointer rounded-md text-sm transition-all duration-200 hover:bg-gray-50 hover:border-gray-400">
+              login
+            </button>
+          </SignInButton>
+        </SignedOut>
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
+
         <button className="px-4 py-2 border border-gray-300 bg-white text-gray-700 cursor-pointer rounded-md text-sm transition-all duration-200 hover:bg-gray-50 hover:border-gray-400">
           Share
         </button>

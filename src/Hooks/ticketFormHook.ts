@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import * as TicketService from "../Services/ticketFormService";
+import { useAuth } from "@clerk/clerk-react";
 
 export interface Ticket {
     id:string;
@@ -11,6 +12,7 @@ export interface Ticket {
 export function useTickets() {
     const [tickets, setTickets] = useState<Ticket[]>([]);
     const [error, setError] = useState<string | null>(null);
+    const { getToken } = useAuth();
 
     async function fetchTickets() {
         try {
@@ -29,7 +31,16 @@ export function useTickets() {
         }
 
         try {
-            const newTicket = await TicketService.createTicket({ content, priority, status });
+            const sessionToken = await getToken();
+            if(!sessionToken) {
+                setError('You need to sign in to submit a ticket')
+                return
+            }
+            const newTicket = await TicketService.createTicket(
+                { content, priority, status },
+                sessionToken
+            );
+            
             setTickets((prev) => [...prev, newTicket]);
             setError(null);
         } catch(errorObject) {
@@ -39,7 +50,12 @@ export function useTickets() {
 
     async function deleteTicket(id:string) {
         try {
-            await TicketService.deleteTicket(id);
+            const sessionToken = await getToken();
+            if(!sessionToken) {
+                setError('You need to sign in to delete a ticket')
+                return
+            }
+            await TicketService.deleteTicket(id, sessionToken);
             await fetchTickets();
         } catch (errorObject) {
             setError(`${errorObject}`);
@@ -54,7 +70,6 @@ export function useTickets() {
         tickets,
         error,
         createTicket,
-        deleteTicket
-        
+        deleteTicket  
     }
 }

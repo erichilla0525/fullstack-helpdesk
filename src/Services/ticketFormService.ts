@@ -5,12 +5,15 @@ export async function fetchTickets() {
     return tickets;
 }
 
-export async function createTicket(ticket: { content:string, priority:string, status:string}) {
-    return await ticketRepo.createTicket(ticket)
+export async function createTicket(
+    ticket: { content:string, priority:string, status:string},
+    sessionToken: string) 
+    {
+    return await ticketRepo.createTicket(ticket, sessionToken);
 }
 
-export async function deleteTicket(id:string) {
-    return await ticketRepo.deleteTicket(id);
+export async function deleteTicket(id:string, sessionToken: string) {
+    return await ticketRepo.deleteTicket(id, sessionToken);
 }
 
 export async function validateTicket(ticket: { content:string, priority:string, status:string }) {
