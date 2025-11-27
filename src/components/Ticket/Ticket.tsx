@@ -4,7 +4,7 @@ import { Trash2 } from "lucide-react"
 
 export default function WorkOrder() {
 
-  const { tickets, deleteTicket } = useTickets()
+  const { tickets, deleteTicket, error } = useTickets()
 
   return(
       <div className="flex flex-col items-center mt-3 mb-3 gap-5">
@@ -28,6 +28,13 @@ export default function WorkOrder() {
             </div>
           ))}
         </div>
+
+        {error && (
+          <p className="text-red-500 font-semibold mb-4">
+            {error}
+          </p>
+        )}
+        
       </div> 
     );
 }

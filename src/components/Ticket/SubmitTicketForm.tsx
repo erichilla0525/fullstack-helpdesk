@@ -3,7 +3,7 @@ import { useTickets } from "../../Hooks/ticketFormHook";
 import { useHover } from "../../Hooks/hoverHook";
 
 export default function SubmitTicketForm() {
-  const { createTicket } = useTickets();
+  const { createTicket, error } = useTickets();
   const hoverStatus = useHover();
 
   const [content, setText] = useState("");
@@ -51,6 +51,12 @@ export default function SubmitTicketForm() {
           ${hoverStatus.isHovered ? "bg-blue-400" : "bg-pink-300"}`}>
           submit
         </button>
+
+        {error && (
+          <p className="text-red-500 font-semibold mb-4">
+            {error}
+          </p>
+        )}
 
       </form>
     </main>
