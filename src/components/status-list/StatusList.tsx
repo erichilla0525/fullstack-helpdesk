@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useTickets } from "../../Hooks/ticketFormHook";
 import { useSystemStatus } from "../../Hooks/useSystemStatus";
 import { StatusItem } from "./StatusItem";
