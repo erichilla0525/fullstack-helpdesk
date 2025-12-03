@@ -1,14 +1,28 @@
 import { useEffect } from "react";
 import { useFAQ } from "../../Hooks/useFaq";
 import { useHover } from "../../Hooks/hoverHook";
+import { useNavigate } from "react-router-dom";
 interface FAQFormProps {
   id?: number | string | undefined;
   mode: "create" | "edit";
 }
 const FAQForm = ({ id, mode }: FAQFormProps) => {
   const hoverStatus = useHover();
-  const { errors, handleSubmit, handleChange, setFaq, faq, faqData } = useFAQ();
+
+  const navigate = useNavigate();
+  const {
+    errors,
+    handleSubmit,
+    handleChange,
+    setFaq,
+    faq,
+    faqData,
+    isSignedIn,
+  } = useFAQ();
   useEffect(() => {
+    if (!isSignedIn) {
+      navigate("/faq");
+    }
     if (mode === "edit" && id !== undefined) {
       const existingFAQ = faqData.find((item) => item.id === id);
       if (existingFAQ) {
@@ -19,7 +33,7 @@ const FAQForm = ({ id, mode }: FAQFormProps) => {
         });
       }
     }
-  }, [mode, id, faqData]);
+  }, [mode, id, faqData, isSignedIn]);
   return (
     <div className="max-w-md mx-auto mt-10 p-6 border rounded-lg shadow-sm">
       <h2 className="text-2xl font-semibold mb-4 text-center">
