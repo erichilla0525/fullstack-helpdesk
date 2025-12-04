@@ -6,16 +6,16 @@ export async function fetchFaq() {
   return faq;
 }
 
-export async function createFaq(faq: FAQItem) {
-  return await faqRepo.createFAQ(faq);
+export async function createFaq(faq: FAQItem, token: string | null) {
+  return await faqRepo.createFAQ(faq, token);
 }
 
-export async function updateFaq(faq: FAQItem) {
-  return await faqRepo.updateFaq(faq);
+export async function updateFaq(faq: FAQItem, token: string | null) {
+  return await faqRepo.updateFaq(faq, token);
 }
 
-export async function deleteFaq(id: string | number) {
-  return await faqRepo.deleteFaq(id);
+export async function deleteFaq(id: string | number, token: string | null) {
+  return await faqRepo.deleteFaq(id, token);
 }
 
 export async function ValidateFaq(faq: FAQItem) {

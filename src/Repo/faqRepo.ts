@@ -10,12 +10,14 @@ export async function getFAQ() {
   return json.data;
 }
 
-export async function createFAQ(faq: FAQItem) {
+export async function createFAQ(faq: FAQItem, token: string | null) {
   const createResponse: Response = await fetch(`${BASE_URL}/faq/create`, {
     method: "POST",
     body: JSON.stringify({ ...faq }),
+
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
   });
 
@@ -26,9 +28,13 @@ export async function createFAQ(faq: FAQItem) {
   const json = await createResponse.json();
   return json.data;
 }
-export async function deleteFaq(id: string | number) {
+export async function deleteFaq(id: string | number, token: string | null) {
   const faqResponse: Response = await fetch(`${BASE_URL}/faq/delete/${id}`, {
     method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
   });
 
   if (!faqResponse.ok) {
@@ -36,15 +42,15 @@ export async function deleteFaq(id: string | number) {
   }
 }
 
-export async function updateFaq(faq: FAQItem) {
+export async function updateFaq(faq: FAQItem, token: string | null) {
   const updateResponse: Response = await fetch(
     `${BASE_URL}/faq/update/${faq.id}`,
     {
-      method: "PUT",
-
+      method: "POST",
       body: JSON.stringify({ ...faq }),
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     }
   );

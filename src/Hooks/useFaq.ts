@@ -3,8 +3,11 @@ import * as FaqService from "../Services/faqService";
 import type { FAQItem } from "../components/FAQ/Faq";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useAuth } from "@clerk/clerk-react";
 
 export const useFAQ = () => {
+  const { isSignedIn } = useAuth();
+  const { getToken } = useAuth();
   const [searchTerm, setSearchTerm] = useState("");
   const [faqData, setFaqData] = useState<FAQItem[]>([]);
   const [faq, setFaq] = useState<FAQItem>({ id: 0, question: "", answer: "" });
@@ -39,29 +42,37 @@ export const useFAQ = () => {
         addFAQ(newFAQ);
       }
       if (mode === "edit" && id !== undefined) {
-        editFAQ({ id, question: faq.question, answer: faq.answer });
+        editFAQ({
+          id,
+          question: faq.question,
+          answer: faq.answer,
+        });
       }
       toast.success(
         `FAQ ${mode == "create" ? "Created" : "Updated"} successfully!`
       );
-      navigate("/faq");
     }
   };
   const filteredFAQs = faqData.filter((faq) =>
     faq.question.toLowerCase().includes(searchTerm.toLowerCase())
   );
   const addFAQ = async (newFAQ: FAQItem) => {
-    const res = await FaqService.createFaq(newFAQ);
+    const token = await getToken();
+    const res = await FaqService.createFaq(newFAQ, token);
     setFaqData((prev) => [...prev, res]);
+    navigate("/faq");
   };
 
   const editFAQ = async (updatedFAQ: FAQItem) => {
-    const res = await FaqService.updateFaq(updatedFAQ);
+    const token = await getToken();
+    const res = await FaqService.updateFaq(updatedFAQ, token);
     setFaqData((prev) => prev.map((faq) => (faq.id === res.id ? res : faq)));
+    navigate("/faq");
   };
 
   const deleteFAQ = async (id: number | string) => {
-    await FaqService.deleteFaq(id);
+    const token = await getToken();
+    await FaqService.deleteFaq(id, token);
     setFaqData((prev) => prev.filter((faq) => faq.id !== id));
   };
 
@@ -79,5 +90,6 @@ export const useFAQ = () => {
     faq,
     faqData,
     setFaqData,
+    isSignedIn,
   };
 };
